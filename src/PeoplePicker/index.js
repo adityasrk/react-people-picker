@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import CheckIcon from "@mui/icons-material/Check";
+import PeopleIcon from '@mui/icons-material/People';
 import useDebounce from "./useDebounce";
 
 function PeoplePicker({
@@ -95,7 +96,13 @@ function PeoplePicker({
   }));
 
   return (
-    <Box sx={{ width: "100%", maxWidth: props?.maxWidth || 600, margin: "20px auto" }}>
+    <Box
+      sx={{
+        width: "100%",
+        maxWidth: props?.maxWidth || 600,
+        margin: "20px auto",
+      }}
+    >
       <Autocomplete
         multiple
         open={open}
@@ -121,6 +128,11 @@ function PeoplePicker({
             helperText={isError ? props?.requiredErrorMessage : null}
             InputProps={{
               ...params.InputProps,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PeopleIcon />
+                </InputAdornment>
+              ),
               endAdornment: (
                 <>
                   {loading ? (
