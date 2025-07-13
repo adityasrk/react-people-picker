@@ -119,7 +119,7 @@ To set up the development environment for this component library:
 
 1. Clone the repository:
 ``` 
-git clone [https://github.com/your-username/my-people-picker-library.git](https://github.com/your-username/my-people-picker-library.git)
+git clone [https://github.com/adityasrk/react-people-picker.git](https://github.com/adityasrk/react-people-picker.git)
 cd my-people-picker-library
 ```
 2. Install dependencies:
