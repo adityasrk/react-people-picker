@@ -146,10 +146,10 @@ This will open the demo application in your browser, where you can test the Peop
 
 | Color         | Hex           |
 | :------------ | :---------    |
-| Example Color |  #0a192f    |
-| Example Color |  #f8f8f8    |
-| Example Color |  #00b48a    |
-| Example Color |  #00d1a0    |
+| theme.palette.primary.dark |  #1565c0    |
+| theme.palette.primary.light |  #42a5f5    |
+| dimgray |  #696969    |
+| darkgray |  #A9A9A9    |
 
 ##  🤝 Contributing
 Contributions are welcome! Please feel free to open an issue or submit a pull request.
