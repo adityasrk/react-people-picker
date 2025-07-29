@@ -1,70 +1,160 @@
-# Getting Started with Create React App
+# React People Picker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A versatile and customizable React People Picker component built with Material-UI, featuring search, debounce, and multi-selection capabilities.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+* **Material-UI Integration:** Seamlessly integrates with your Material-UI themed applications.
+* **Search Functionality:** Filter available options by typing in the input field.
+* **Debounced Search:** Optimizes performance by delaying search queries, reducing unnecessary API calls or list filtering.
+* **Customizable Options:** Easily provide your own list of people.
+* **Controlled Component:** Manage selected values from parent component state.
+* **Clear Selection:** Option to clear all selected items.
 
-### `npm start`
+## 🚀 Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+First, install the package in your React project:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install @sadhus/react-people-picker
+  or
+yarn add @sadhus/react-people-picker
+```
 
-### `npm test`
+This component relies on <mark>react</mark>, <mark>react-dom</mark>, <mark>@mui/material</mark>, <mark>@mui/icons-material</mark>, <mark>@emotion/react</mark>, and <mark>@emotion/styled</mark> as peer dependencies. Ensure these are also installed in your project:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm install react react-dom @mui/material @mui/icons-material @emotion/react @emotion/styled
+  or
+yarn add react react-dom @mui/material @mui/icons-material @emotion/react @emotion/styled
+```
 
-### `npm run build`
+## 💡 Usage
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+import React, { useState } from 'react';
+import PeoplePicker from '@sadhus/react-people-picker';
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+function App() {
+  // Example data structure for people (typically fetch this from an API)
+  const allPeople = [
+    { id: '1', name: 'Alice Smith', email: 'alice@example.com' },
+    { id: '2', name: 'Bob Johnson', email: 'bob@example.com' },
+    { id: '3', name: 'Charlie Brown', email: 'charlie@example.com' },
+    { id: '4', name: 'Diana Prince', email: 'diana@example.com' },
+    { id: '5', name: 'Eve Adams', email: 'eve@example.com' },
+  ];
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  const [selectedUsers, setSelectedUsers] = useState([]);
 
-### `npm run eject`
+  const handleSelectionChange = (newSelection) => {
+    console.log('Selected People:', newSelection);
+    setSelectedUsers(newSelection);
+  };
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  const loadPeopleOptions = (searchTerm) => {
+    // In your application, you would make an API call here.
+    // For this example, we are filtering the local array.
+    console.log('Searching for:', searchTerm);
+    return new Promise(resolve => {
+      setTimeout(() => { // Simulate API delay
+        const filtered = allPeople.filter(person =>
+          person.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          person.email.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        resolve(filtered);
+      }, 300);
+    });
+  };
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  return (
+    <div>
+      <div style={{ width: 400, margin: '20px auto' }}>
+        <PeoplePicker
+            autocompleteBordercolor="dimgray"
+            chipBGcolor="dimgray"
+            debounceDelay={300} // Optional. Default debounce search input by 300ms
+            initialSelected={selectedUsers}
+            loadOptions={loadPeopleOptions}
+            maxWidth="400px"
+            minSearchLength={3}
+            onSelectionChange={handleSelectionChange}
+            placeholder="Search user by name/email/alias"
+            tooltipColor="darkgray"
+            isRequired={true} // Optional. Default is false, if the control mandatory in the form
+            requiredErrorMessage="At least one user is required" // required when isRequired
+            isError={formSubmitted && selectedUsers.length === 0}
+        />
+      </div>
+    </div>
+  );
+}
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+export default App;
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## ⚙️ Props
 
-## Learn More
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Prop Name       | Type                                                | Default                             | Description                                     |
+| :------------   | :-----------                                        | :--------------------------------   | :-------------------------------------------    |
+| initialSelected | Array<{id: string, name: string, email?: string}>   | []                                  | An array of initial selected people objects. Each object should at least have `id` and `name`.   |
+| loadOptions     | (searchTerm: string)  => Promise<Array<{id: string, name: string, email?: string}>> | undefined | A function that receives the search term and should return a Promise resolving to an array of people objects. This is where your API call or data filtering logic goes. |
+| onSelectionChange | (selected: Array<{id: string, name: string, email?: string}>) => void | undefined | Callback function triggered when the selection changes, receiving the updated array of selected people. |
+| debounceDelay | number  | 300 | The time in milliseconds to debounce the `loadOptions` function calls. |
+| minSearchLength | number  | 3 | Minumum character length needed for a search to trigger. |
+| maxWidth  | number  | 600px | Maximum width of the control.  |
+| autocompleteBordercolor | string  | theme.palette.primary.dark  | border color of the autocomplete control.  |
+| chipColor | string  | theme.palette.primary.dark  | fill color of the chip holding the user name in the autocomplete control.  |
+| tooltipColor  | string  | theme.palette.primary.light | color of the tooltip when the cursor is hovered on the chip.  |
+| placeholder     | string  | 'Search User' | The placeholder text for the input field. |
+| isRequired  | boolean | false | If the control mandatory in the form.  |
+| requiredErrorMessage  | string  | null  | This field is mandatory when `isRequired` field is part of the control. |
 
-### Code Splitting
+## 🛠️ Development
+To set up the development environment for this component library:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Clone the repository:
+``` 
+git clone [https://github.com/adityasrk/react-people-picker.git](https://github.com/adityasrk/react-people-picker.git)
+cd my-people-picker-library
+```
+2. Install dependencies:
+```
+npm install or yarn install
+```
+3. Run the Rollup build in watch mode (optional, for library development):
+```
+npm run dev
+```
+This will recompile your library files (`dist/`) automatically on changes.
 
-### Analyzing the Bundle Size
+4. Run the demo application:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+In a separate terminal, navigate to the `demo-app` directory and start the CRA development server:
+```
+cd demo-app
+npm install # Only if not done during the main 'npm install' or 'yarn install' at root
+npm start
+```
+This will open the demo application in your browser, where you can test the PeoplePicker component.
 
-### Making a Progressive Web App
+## Color Reference
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+| Color         | Hex           |
+| :------------ | :---------    |
+| theme.palette.primary.dark |  #1565c0    |
+| theme.palette.primary.light |  #42a5f5    |
+| dimgray |  #696969    |
+| darkgray |  #A9A9A9    |
 
-### Advanced Configuration
+##  🤝 Contributing
+Contributions are welcome! Please feel free to open an issue or submit a pull request.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+##  📄 License
+This project is licensed under the MIT License. See the `LICENSE` file for details.
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
