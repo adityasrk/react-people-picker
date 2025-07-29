@@ -16,9 +16,9 @@ A versatile and customizable React People Picker component built with Material-U
 First, install the package in your React project:
 
 ```bash
-npm install @sadhu/react-people-picker
+npm install @sadhus/react-people-picker
   or
-yarn add @sadhu/react-people-picker
+yarn add @sadhus/react-people-picker
 ```
 
 This component relies on <mark>react</mark>, <mark>react-dom</mark>, <mark>@mui/material</mark>, <mark>@mui/icons-material</mark>, <mark>@emotion/react</mark>, and <mark>@emotion/styled</mark> as peer dependencies. Ensure these are also installed in your project:
@@ -33,7 +33,7 @@ yarn add react react-dom @mui/material @mui/icons-material @emotion/react @emoti
 
 ```bash
 import React, { useState } from 'react';
-import PeoplePicker from '@sadhu/react-people-picker';
+import PeoplePicker from '@sadhus/react-people-picker';
 
 function App() {
   // Example data structure for people (typically fetch this from an API)

@@ -1,5 +1,5 @@
 {
-  "name": "@sadhu/react-people-picker",
+  "name": "@sadhus/react-people-picker",
   "version": "1.0.0",
   "description": "A React People Picker component mimicking Outlook's user search UI with deletable chips and debounced search.",
   "keywords": [
