@@ -7,6 +7,7 @@ import {
   Box,
   Typography,
   styled,
+  InputAdornment,
 } from "@mui/material";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import CheckIcon from "@mui/icons-material/Check";
