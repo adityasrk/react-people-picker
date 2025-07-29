@@ -1,11 +1,11 @@
 import resolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import { terser } from '@rollup/plugin-terser';
+import terser from '@rollup/plugin-terser';
 
 // Main config for JS/JSX
 const commonConfig = {
-  input: 'src/components/PeoplePicker.jsx', // Your component's entry point
+  input: 'src/PeoplePicker/index.js', // Your component's entry point
   output: [
     {
       file: 'dist/index.js',
@@ -21,6 +21,7 @@ const commonConfig = {
     },
   ],
   plugins: [
+    terser(), // Minify the output
     peerDepsExternal(), // Automatically externalize peer dependencies
     resolve(), // Resolve Node.js modules
     babel({
