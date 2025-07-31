@@ -33,59 +33,73 @@ yarn add react react-dom @mui/material @mui/icons-material @emotion/react @emoti
 
 ```bash
 import React, { useState } from 'react';
-import PeoplePicker from '@sadhus/react-people-picker';
+import { Box, Button } from '@mui/material';
+import PeoplePicker from "@sadhus/react-people-picker";
 
-function App() {
-  // Example data structure for people (typically fetch this from an API)
-  const allPeople = [
-    { id: '1', name: 'Alice Smith', email: 'alice@example.com' },
-    { id: '2', name: 'Bob Johnson', email: 'bob@example.com' },
-    { id: '3', name: 'Charlie Brown', email: 'charlie@example.com' },
-    { id: '4', name: 'Diana Prince', email: 'diana@example.com' },
-    { id: '5', name: 'Eve Adams', email: 'eve@example.com' },
+
+// Mock API call in the CONSUMING APPLICATION
+const mockUsersApiCall = (searchTerm) => {
+  console.log('Consumer App: API Call for search:', searchTerm);
+  const allUsers = [
+    { id: '1', name: 'Alice Smith', email: 'alice@example.com', alias: 'alismi' },
+    { id: '2', name: 'Bob Johnson', email: 'bob@example.com', alias: 'bobjoh' },
+    { id: '3', name: 'Charlie Brown', email: 'charlie@example.com', alias: 'chabro' },
+    { id: '4', name: 'Diana Prince', email: 'diana@example.com', alias: 'diapri' },
+    { id: '5', name: 'Eve Adams', email: 'eve@example.com', alias: 'evedam' },
   ];
 
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const lowercasedQuery = searchTerm.toLowerCase();
+      const filtered = allUsers.filter(user =>
+        user.name.toLowerCase().includes(lowercasedQuery) ||
+        user.email.toLowerCase().includes(lowercasedQuery) ||
+        (user.alias && user.alias.toLowerCase().includes(lowercasedQuery)) 
+      );
+      resolve(filtered);
+    }, 300);
+  });
+};
+
+
+function App() {
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const handleSelectionChange = (newSelection) => {
-    console.log('Selected People:', newSelection);
-    setSelectedUsers(newSelection);
-  };
-
-  const loadPeopleOptions = (searchTerm) => {
-    // In your application, you would make an API call here.
-    // For this example, we are filtering the local array.
-    console.log('Searching for:', searchTerm);
-    return new Promise(resolve => {
-      setTimeout(() => { // Simulate API delay
-        const filtered = allPeople.filter(person =>
-          person.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          person.email.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        resolve(filtered);
-      }, 300);
-    });
+const handleSubmit = () => {
+    setFormSubmitted(true); // Trigger validation
+    
+    // do respective form submission logic here
   };
 
   return (
-    <div>
-      <div style={{ width: 400, margin: '20px auto' }}>
-        <PeoplePicker
-            autocompleteBordercolor="dimgray"
-            chipBGcolor="dimgray"
-            debounceDelay={300} // Optional. Default debounce search input by 300ms
-            initialSelected={selectedUsers}
-            loadOptions={loadPeopleOptions}
-            maxWidth="400px"
-            minSearchLength={3}
-            onSelectionChange={handleSelectionChange}
-            placeholder="Search user by name/email/alias"
-            tooltipColor="darkgray"
-            isRequired={true} // Optional. Default is false, if the control mandatory in the form
-            requiredErrorMessage="At least one user is required" // required when isRequired
-            isError={formSubmitted && selectedUsers.length === 0}
-        />
-      </div>
+    <div className="App">
+      <PeoplePicker
+        maxWidth="400px"
+        autocompleteBordercolor="dimgray"
+        chipBGcolor="dimgray"
+        tooltipColor="darkgray"
+        placeholder="Search user by name/email/alias"
+        debounceDelay={300}
+        minSearchLength={3}
+        initialSelectedUsers={[]}
+        onSearch={mockUsersApiCall}
+        onSelectedUsersChange={setSelectedUsers}
+        isRequired={true}
+        requiredErrorMessage="At least one user is required"
+        isError={formSubmitted && selectedUsers.length === 0}
+      />
+
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+        <Button
+          variant="contained"
+          onClick={handleSubmit}
+          size="small"
+          sx={{ backgroundColor: "black", color: "white" }}
+        >
+          submit
+        </Button>
+      </Box>
     </div>
   );
 }
@@ -101,10 +115,10 @@ export default App;
 
 | Prop Name       | Type                                                | Default                             | Description                                     |
 | :------------   | :-----------                                        | :--------------------------------   | :-------------------------------------------    |
-| initialSelected | Array<{id: string, name: string, email?: string}>   | []                                  | An array of initial selected people objects. Each object should at least have `id` and `name`.   |
-| loadOptions     | (searchTerm: string)  => Promise<Array<{id: string, name: string, email?: string}>> | undefined | A function that receives the search term and should return a Promise resolving to an array of people objects. This is where your API call or data filtering logic goes. |
-| onSelectionChange | (selected: Array<{id: string, name: string, email?: string}>) => void | undefined | Callback function triggered when the selection changes, receiving the updated array of selected people. |
-| debounceDelay | number  | 300 | The time in milliseconds to debounce the `loadOptions` function calls. |
+| initialSelectedUsers | Array<{id: string, name: string, email?: string}>   | []                                  | An array of initial selected people objects. Each object should at least have `id` and `name`.   |
+| onSearch     | (searchTerm: string)  => Promise<Array<{id: string, name: string, email?: string}>> | undefined | A function that receives the search term and should return a Promise resolving to an array of people objects. This is where your API call or data filtering logic goes. |
+| onSelectedUsersChange | (selected: Array<{id: string, name: string, email?: string}>) => void | undefined | Callback function triggered when the selection changes, receiving the updated array of selected people. |
+| debounceDelay | number  | 300 | The time in milliseconds to debounce the `onSearch` function calls. |
 | minSearchLength | number  | 3 | Minumum character length needed for a search to trigger. |
 | maxWidth  | number  | 600px | Maximum width of the control.  |
 | autocompleteBordercolor | string  | theme.palette.primary.dark  | border color of the autocomplete control.  |
