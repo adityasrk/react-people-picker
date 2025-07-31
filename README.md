@@ -77,7 +77,7 @@ const handleSubmit = () => {
       <PeoplePicker
         maxWidth="400px"
         autocompleteBordercolor="dimgray"
-        chipBGcolor="dimgray"
+        chipColor="dimgray"
         tooltipColor="darkgray"
         placeholder="Search user by name/email/alias"
         debounceDelay={300}
