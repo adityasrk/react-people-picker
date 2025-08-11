@@ -1,6 +1,6 @@
 {
   "name": "@sadhus/react-people-picker",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A React People Picker component mimicking Outlook's user search UI with deletable chips and debounced search.",
   "type": "module",
   "keywords": [
