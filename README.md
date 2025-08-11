@@ -11,6 +11,11 @@ A versatile and customizable React People Picker component built with Material-U
 * **Controlled Component:** Manage selected values from parent component state.
 * **Clear Selection:** Option to clear all selected items.
 
+## Screenshots
+![search/results](react-people-picker-screenshots-1.JPG)
+![users/tooltip](react-people-picker-screenshots-2.JPG)
+![validation](react-people-picker-screenshots-3.JPG)
+
 ## 🚀 Installation
 
 First, install the package in your React project:
