@@ -12,9 +12,10 @@ A versatile and customizable React People Picker component built with Material-U
 * **Clear Selection:** Option to clear all selected items.
 
 ## Screenshots
-![search/results](https://github.com/adityasrk/react-people-picker/blob/master/react-people-picker-screenshots-1.jpg)
-![users/tooltip](https://github.com/adityasrk/react-people-picker/blob/master/react-people-picker-screenshots-2.jpg)
-![validation](https://github.com/adityasrk/react-people-picker/blob/master/react-people-picker-screenshots-3.JPG)
+
+![search/results](https://github.com/adityasrk/react-people-picker/blob/master/screenshots/react-people-picker-screenshots-1.jpg)
+![users/tooltip](https://github.com/adityasrk/react-people-picker/blob/master/screenshots/react-people-picker-screenshots-2.jpg)
+![validation](https://github.com/adityasrk/react-people-picker/blob/master/screenshots/react-people-picker-screenshots-3.JPG)
 
 ## 🚀 Installation
 
