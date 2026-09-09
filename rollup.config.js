@@ -8,8 +8,8 @@ const commonConfig = {
   input: 'src/PeoplePicker/index.js', // Your component's entry point
   output: [
     {
-      file: 'dist/index.js',
-      format: 'cjs', // CommonJS for Node.js environments
+      file: 'dist/index.cjs',
+      format: 'cjs', // CommonJS for Node.js environments; .cjs extension avoids ESM misparsing under "type": "module"
       sourcemap: true,
       plugins: [terser()], // Minify CJS output
     },
