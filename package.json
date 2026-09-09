@@ -1,8 +1,9 @@
 {
   "name": "@sadhus/react-people-picker",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A React People Picker component mimicking Outlook's user search UI with deletable chips and debounced search.",
   "type": "module",
+  "sideEffects": false,
   "keywords": [
     "react",
     "mui",
@@ -14,8 +15,22 @@
   ],
   "author": "Aditya Sadhu - aditya.srk007@gmail.com",
   "license": "MIT",
-  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adityasrk/react-people-picker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adityasrk/react-people-picker/issues"
+  },
+  "homepage": "https://github.com/adityasrk/react-people-picker#readme",
+  "main": "dist/index.cjs",
   "module": "dist/index.esm.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs"
+    }
+  },
   "files": [
     "dist",
     "README.md",
