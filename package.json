@@ -1,6 +1,6 @@
 {
   "name": "@sadhus/react-people-picker",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "A React People Picker component mimicking Outlook's user search UI with deletable chips and debounced search.",
   "type": "module",
   "sideEffects": false,
@@ -25,8 +25,10 @@
   "homepage": "https://github.com/adityasrk/react-people-picker#readme",
   "main": "dist/index.cjs",
   "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.esm.js",
       "require": "./dist/index.cjs"
     }
@@ -37,7 +39,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c && node scripts/copy-types.js",
     "start": "rollup -c -w"
   },
   "peerDependencies": {

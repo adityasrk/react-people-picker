@@ -10,7 +10,7 @@ import {
   Tooltip,
   tooltipClasses,
 } from "@mui/material";
-import CheckIcon from "@mui/icons-material/Check";
+import { Check as CheckIcon } from "@mui/icons-material";
 import useDebounce from "./useDebounce";
 
 function PeoplePicker({
