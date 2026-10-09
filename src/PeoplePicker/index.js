@@ -7,8 +7,9 @@ import {
   Box,
   Typography,
   styled,
+  Tooltip,
+  tooltipClasses,
 } from "@mui/material";
-import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 import CheckIcon from "@mui/icons-material/Check";
 import useDebounce from "./useDebounce";
 
